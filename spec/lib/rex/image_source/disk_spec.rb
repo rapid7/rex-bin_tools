@@ -6,7 +6,7 @@ require 'rex/image_source/disk'
 RSpec.describe Rex::ImageSource::Disk do
 
   let(:path) do
-    File.join(Msf::Config.data_directory, "templates", "template_x86_windows_old.exe")
+    File.join(FIXTURE_PATH, "templates", "template_x86_windows_old.exe")
   end
 
   let(:file) do
