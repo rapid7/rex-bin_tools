@@ -26,4 +26,5 @@ Gem::Specification.new do |spec|
 
   spec.add_runtime_dependency 'metasm'
   spec.add_runtime_dependency 'rex-arch'
+  spec.add_runtime_dependency 'rex-struct2'
 end
