@@ -28,4 +28,5 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'rex-arch'
   spec.add_runtime_dependency 'rex-struct2'
   spec.add_runtime_dependency 'rex-text'
+  spec.add_runtime_dependency 'rex-core'
 end
