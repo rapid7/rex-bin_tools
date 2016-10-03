@@ -9,23 +9,23 @@ module Assembly
 
 ###
 #
-# This class uses assembly to assemble and disassemble stuff.
+# This class uses nasm to assemble and disassemble stuff.
 #
 ###
 class Nasm
 
-  @@nasm_path    = 'assembly'
+  @@nasm_path    = 'nasm'
   @@ndisasm_path = 'ndisasm'
 
   #
-  # Ensures that the assembly environment is sane.
+  # Ensures that the nasm environment is sane.
   #
   def self.check
     @@nasm_path =
-      Rex::FileUtils.find_full_path('assembly')      ||
-      Rex::FileUtils.find_full_path('assembly.exe')  ||
+      Rex::FileUtils.find_full_path('nasm')      ||
+      Rex::FileUtils.find_full_path('nasm.exe')  ||
       Rex::FileUtils.find_full_path('nasmw.exe') ||
-      raise(RuntimeError, "No assembly installation was found.")
+      raise(RuntimeError, "No nasm installation was found.")
 
     @@ndisasm_path =
       Rex::FileUtils.find_full_path('ndisasm')      ||
@@ -52,7 +52,7 @@ class Nasm
     tmp.flush()
     tmp.seek(0)
 
-    # Run assembly
+    # Run nasm
     if (system(@@nasm_path, '-f', 'bin', '-o', opath, tpath) == false)
       raise RuntimeError, "Assembler did not complete successfully: #{$?.exitstatus}"
     end
