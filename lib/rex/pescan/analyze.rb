@@ -23,7 +23,7 @@ module Analyze
       fd = File.open(param['database'], 'rb')
       fd.each_line do |line|
         case line
-        when /^\s*#/
+        when /^\s*[#;]/
           next
         when /\[\s*(.*)\s*\]/
           if (name)
