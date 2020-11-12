@@ -6,8 +6,8 @@ require 'rex/bin_tools/version'
 Gem::Specification.new do |spec|
   spec.name          = "rex-bin_tools"
   spec.version       = Rex::BinTools::VERSION
-  spec.authors       = ["David Maloney"]
-  spec.email         = ["DMaloney@rapid7.com"]
+  spec.authors       = ['Metasploit Hackers']
+  spec.email         = ['msfdev@metasploit.com']
 
   spec.summary       = "Ruby Exploitation(rex) Library containing a suite of binary reading and manipulation tools"
   spec.description   = "A suite of tools for analyzing Elf,Mach, and PE format executables to find specific chunks of code."
@@ -20,9 +20,8 @@ Gem::Specification.new do |spec|
 
   spec.required_ruby_version = '>= 2.2.0'
 
-  spec.add_development_dependency "bundler", "~> 1.12"
-  spec.add_development_dependency "rake", "~> 10.0"
-  spec.add_development_dependency "rspec", "~> 3.0"
+  spec.add_development_dependency "rake"
+  spec.add_development_dependency "rspec"
 
   spec.add_runtime_dependency 'metasm'
   spec.add_runtime_dependency 'rex-arch'
