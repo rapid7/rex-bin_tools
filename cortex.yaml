@@ -1,0 +1,15 @@
+---
+info:
+  title: Rex Bin Tools
+  description: Created by David Maloney via the GitHub Connector
+  x-cortex-git:
+    github:
+      alias: r7org
+      repository: rapid7/rex-bin_tools
+  x-cortex-tag: rex-bin-tools
+  x-cortex-type: service
+  x-cortex-domain-parents:
+  - tag: metasploit
+openapi: 3.0.1
+servers:
+- url: "/"
