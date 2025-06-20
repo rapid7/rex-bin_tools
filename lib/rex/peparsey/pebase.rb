@@ -146,6 +146,8 @@ class PeBase
   IMAGE_FILE_MACHINE_ALPHA64 = 0x0284
   # #define IMAGE_FILE_MACHINE_AMD64             0x8664  // AMD64 (K8)
   IMAGE_FILE_MACHINE_AMD64 = 0x8664
+  # #define IMAGE_FILE_MACHINE_ARM64             0xaa64  // ARM64
+  IMAGE_FILE_MACHINE_ARM64 = 0xaa64
   # #define IMAGE_SIZEOF_FILE_HEADER             20
   IMAGE_FILE_HEADER_SIZE   = 20+4  # because we include the signature
 
@@ -175,7 +177,8 @@ class PeBase
     IMAGE_FILE_MACHINE_I386,
     IMAGE_FILE_MACHINE_IA64,
     IMAGE_FILE_MACHINE_ALPHA64,
-    IMAGE_FILE_MACHINE_AMD64
+    IMAGE_FILE_MACHINE_AMD64,
+    IMAGE_FILE_MACHINE_ARM64
   ]
 
   class FileHeader < GenericHeader
