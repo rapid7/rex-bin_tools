@@ -58,8 +58,19 @@ module Analyze
       buf = pe.read_rva(epa, 256) || ""
 
       @sigs.each_pair do |name, data|
-        begin
-        if (buf.match(Regexp.new('^' + data[0], nil, 'n')))
+      begin
+        # Adapting to Regexp.new's New Signature in Ruby 3.3+
+        pattern = '^' + data[0]
+        # Choose initialization method based on Ruby version
+        regex = if RUBY_VERSION >= '3.3.0'
+          # For Ruby 3.3+: explicitly mark as binary pattern and use NOENCODING
+          binary_pattern = pattern.b
+          Regexp.new(binary_pattern, Regexp::NOENCODING)
+        else
+          # For Ruby <= 3.2: use legacy three-argument syntax
+          Regexp.new(pattern, nil, 'n')
+        end
+        if (buf.match(regex))
           $stdout.puts param['file'] + ": " + name
         end
         rescue RegexpError
