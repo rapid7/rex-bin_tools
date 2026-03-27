@@ -83,7 +83,8 @@ module Scanner
       # Adapting to Regexp.new's New Signature in Ruby 3.3+
       regexstr += "\xff[#{jmps}]|([#{pushs1}]|\xff[#{pushs2}])(\xc3|\xc2..))"
       # Choose initialization method based on Ruby version
-      self.regex = if RUBY_VERSION >= '3.3.0'
+      major, minor, _patch = RUBY_VERSION.split('.').map(&:to_i)
+      self.regex = if (major > 3) || (major == 3 && minor >= 3)
         # For Ruby 3.3+: explicitly mark as binary pattern and use NOENCODING
         binary_pattern = regexstr.b
         Regexp.new(binary_pattern, Regexp::NOENCODING)
@@ -172,7 +173,8 @@ module Scanner
       # Adapting to Regexp.new's New Signature in Ruby 3.3+
       pattern = "[#{pops}][#{pops}](\xc3|\xc2..)"
       # Choose initialization method based on Ruby version
-      self.regex = if RUBY_VERSION >= '3.3.0'
+      major, minor, _patch = RUBY_VERSION.split('.').map(&:to_i)
+      self.regex = if (major > 3) || (major == 3 && minor >= 3)
         # For Ruby 3.3+: explicitly mark as binary pattern and use NOENCODING
         binary_pattern = pattern.b
         Regexp.new(binary_pattern, Regexp::NOENCODING)
@@ -216,7 +218,8 @@ module Scanner
       # Adapting to Regexp.new's New Signature in Ruby 3.3+
       pattern = param['args']
       # Choose initialization method based on Ruby version
-      self.regex = if RUBY_VERSION >= '3.3.0'
+      major, minor, _patch = RUBY_VERSION.split('.').map(&:to_i)
+      self.regex = if (major > 3) || (major == 3 && minor >= 3)
         # For Ruby 3.3+: explicitly mark as binary pattern and use NOENCODING
         binary_pattern = pattern.b
         Regexp.new(binary_pattern, Regexp::NOENCODING)
