@@ -80,9 +80,18 @@ module Scanner
         regexstr += "\xff[#{calls}]|"
       end
 
+      # Adapting to Regexp.new's New Signature in Ruby 3.3+
       regexstr += "\xff[#{jmps}]|([#{pushs1}]|\xff[#{pushs2}])(\xc3|\xc2..))"
-
-      self.regex = Regexp.new(regexstr, nil, 'n')
+      # Choose initialization method based on Ruby version
+      major, minor, _patch = RUBY_VERSION.split('.').map(&:to_i)
+      self.regex = if (major > 3) || (major == 3 && minor >= 3)
+        # For Ruby 3.3+: explicitly mark as binary pattern and use NOENCODING
+        binary_pattern = regexstr.b
+        Regexp.new(binary_pattern, Regexp::NOENCODING)
+      else
+        # For Ruby <= 3.2: use legacy three-argument syntax
+        Regexp.new(regexstr, nil, 'n')
+      end
     end
 
     # build a list for regex of the possible bytes, based on a base
@@ -161,7 +170,18 @@ module Scanner
 
     def config(param)
       pops = _build_byte_list(0x58, (0 .. 7).to_a - [4]) # we don't want pop esp's...
-      self.regex = Regexp.new("[#{pops}][#{pops}](\xc3|\xc2..)", nil, 'n')
+      # Adapting to Regexp.new's New Signature in Ruby 3.3+
+      pattern = "[#{pops}][#{pops}](\xc3|\xc2..)"
+      # Choose initialization method based on Ruby version
+      major, minor, _patch = RUBY_VERSION.split('.').map(&:to_i)
+      self.regex = if (major > 3) || (major == 3 && minor >= 3)
+        # For Ruby 3.3+: explicitly mark as binary pattern and use NOENCODING
+        binary_pattern = pattern.b
+        Regexp.new(binary_pattern, Regexp::NOENCODING)
+      else
+        # For Ruby <= 3.2: use legacy three-argument syntax
+        Regexp.new(pattern, nil, 'n')
+      end
     end
 
     def scan_section(section, param={})
@@ -195,7 +215,18 @@ module Scanner
   class RegexScanner < Generic
 
     def config(param)
-      self.regex = Regexp.new(param['args'], nil, 'n')
+      # Adapting to Regexp.new's New Signature in Ruby 3.3+
+      pattern = param['args']
+      # Choose initialization method based on Ruby version
+      major, minor, _patch = RUBY_VERSION.split('.').map(&:to_i)
+      self.regex = if (major > 3) || (major == 3 && minor >= 3)
+        # For Ruby 3.3+: explicitly mark as binary pattern and use NOENCODING
+        binary_pattern = pattern.b
+        Regexp.new(binary_pattern, Regexp::NOENCODING)
+      else
+        # For Ruby <= 3.2: use legacy three-argument syntax
+        Regexp.new(pattern, nil, 'n')
+      end
     end
 
     def scan_section(section, param={})
