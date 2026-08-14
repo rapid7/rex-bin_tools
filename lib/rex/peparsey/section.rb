@@ -112,7 +112,7 @@ class Section
   end
 
   def contains_offset?(offset)
-    offset >= 0 && offset < size
+    offset >= 0 && offset <= size
   end
 
   def contains_file_offset?(foffset)
